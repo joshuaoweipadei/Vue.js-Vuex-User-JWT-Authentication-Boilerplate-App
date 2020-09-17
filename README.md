@@ -1,4 +1,4 @@
-# vue-login-system
+# Vue.js + Vuex User Registration and JWT Authentication Boilerplate App
 
 ## Project setup
 ```
@@ -20,5 +20,5 @@ npm run build
 npm run lint
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### Backend Node.js API for this app
+See [Node.js + PostgreSQL with JWT Authentication API](https://github/joshuaoweipadei)
