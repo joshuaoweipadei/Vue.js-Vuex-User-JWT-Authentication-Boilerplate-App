@@ -21,4 +21,4 @@ npm run lint
 ```
 
 ### Backend Node.js API for this app
-See [Node.js + PostgreSQL with JWT Authentication API](https://github/joshuaoweipadei)
+See [Node.js + PostgreSQL with JWT Authentication API](https://github.com/joshuaoweipadei/Node.js-PostgreSQL-JWT-Authentication-API)
