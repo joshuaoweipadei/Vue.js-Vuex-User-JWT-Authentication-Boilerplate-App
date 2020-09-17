@@ -1,6 +1,7 @@
 {
   "name": "vue-login-system",
   "version": "0.1.0",
+  "description": "Vue.js + Vuex User Registration and JWT Authentication Boilerplate App",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -9,13 +10,13 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
+    "vee-validate": "^3.3.11",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
     "vuex": "^3.4.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
-    "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-plugin-router": "~4.5.0",
     "@vue/cli-plugin-vuex": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
@@ -24,7 +25,7 @@
     "eslint": "^6.7.2",
     "eslint-plugin-prettier": "^3.1.3",
     "eslint-plugin-vue": "^6.2.2",
-    "prettier": "^1.19.1",
+    "prettier": "^2.1.2",
     "vue-template-compiler": "^2.6.11"
   },
   "eslintConfig": {
