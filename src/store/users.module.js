@@ -12,7 +12,7 @@ const actions = {
             .then((users) => {
                 commit('getAllSuccess', users);
             }).catch((error) => {
-                commit('getAllFailed', users);
+                commit('getAllFailed', error);
                 dispatch('alert/error', error, { root: true });
             });
     },
@@ -36,7 +36,7 @@ const mutations = {
     getAllSuccess(state, users){
         state.all = { items: users }
     },
-    getAllFailed(state){
+    getAllFailed(state, error){
         state.all = { error }
     },
 

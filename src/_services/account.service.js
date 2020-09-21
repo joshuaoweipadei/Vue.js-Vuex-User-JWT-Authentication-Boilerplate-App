@@ -54,7 +54,7 @@ function verifyEmail(token){
 function getAll(){
     const requestOptions = {
         methdo: "GET",
-        headers: authHeader()
+        headers: {...authHeader()}
     }
     return fetch(`${process.env.VUE_APP_ROOT_API}/account/users`, requestOptions).then(handleResponse);
 }
