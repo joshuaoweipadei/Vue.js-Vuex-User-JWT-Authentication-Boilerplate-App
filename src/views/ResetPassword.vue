@@ -5,32 +5,28 @@
                 <div class="col-md-4 mx-auto">
                     <ValidationObserver v-slot="{handleSubmit}">
                         <form @submit.prevent="handleSubmit(onSubmit)">
-                            <h4 class="mb-4">Welcome back, please login</h4>
-                            <ValidationProvider name="Email" rules="required|email" v-slot="{errors}">
+                            <h4 class="mb-4 text-center">Reset New Password</h4>
+                            <ValidationProvider name="new password" rules="required" vid="password" v-slot="{errors}">
                                 <div class="form-group">
-                                    <label>Email</label>
-                                    <input class="form-control" v-model="email" type="text">
+                                    <label>New Password</label>
+                                    <input type="password" class="form-control" v-model="password" >
                                     <span class="small">{{ errors[0] }}</span>
                                 </div>
                             </ValidationProvider> 
-                            <ValidationProvider name="Password" rules="required" v-slot="{errors}">
+                            <ValidationProvider name="confirm password" rules="required|confirmed:password" v-slot="{errors}">
                                 <div class="form-group"> 
-                                    <label>Password</label>
-                                    <input class="form-control" v-model="password" type="password" >
+                                    <label>Confirm Password</label>
+                                    <input type="password" class="form-control" v-model="confirmation" >
                                     <span class="small">{{ errors[0] }}</span>
                                 </div>
                             </ValidationProvider> 
                             <div class="mt-4 mb-4">
-                                <button type="submit" :disabled="status.loggingIn" class="btn btn-primary btn-block">Login</button> 
+                                <button type="submit" :disabled="status.requesting" class="btn btn-primary btn-block">Reset Password</button> 
                             </div>
                             <div v-if="alert.message" :class="`alert ${alert.type}`" v-on:click="clearAlert">{{alert.message}}</div>
-
-                            <div class="mt-4">
-                                <p class="forgot-password mb-1">Don't have an account, <router-link to="register">Create one</router-link>?</p>
-                                <p class="forgot-password"><router-link to="forgot-password">Forgot Password</router-link></p>
-                            </div>
                         </form>
                     </ValidationObserver>
+
                 </div>
             </div>
         </div>
@@ -41,10 +37,24 @@
 import { mapState, mapActions } from 'vuex';
 
 export default {
+    created(){
+        const { email, token } = this.$router.currentRoute.query;
+        if(email && token){
+            this.email = email;
+            this.token = token;
+            // remove email and token from url to prevent http referre leakage
+            this.$router.replace(this.$router.currentRoute.path);
+
+            // Verify the email and token from the url query string
+            this.verifyResetToken({email, token});
+        } else{
+            this.$router.push('/login');
+        }
+    },
     data: () => {
         return {
-            email: '',
-            password: ''
+            password: '',
+            confirmation: '',
         }
     },
     computed: {
@@ -55,12 +65,13 @@ export default {
     },
     methods: {
         ...mapActions({
-            login: 'account/login',
+            verifyResetToken: 'account/verifyResetToken',
+            resetPassword: 'account/resetPassword',
             clearAlert: 'alert/clear'
         }),
         onSubmit(){
-            const { email, password } = this;
-            this.login({ email, password });
+            const { email, token, password } = this;
+            this.resetPassword({ email, token, password });
         }
     }
 }

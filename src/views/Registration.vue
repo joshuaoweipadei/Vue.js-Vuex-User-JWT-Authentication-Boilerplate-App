@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="container">
-            <div class="row">
+            <div class="row mt-5">
                 <div class="col-md-5 mx-auto">
                     <ValidationObserver v-slot="{handleSubmit}">
                         <form @submit.prevent="handleSubmit(onSubmit)">
@@ -30,7 +30,7 @@
                             <ValidationProvider name="Password" rules="required" v-slot="{errors}">
                                 <div class="form-group"> 
                                     <label>Password</label>
-                                    <input class="form-control" v-model="user.password" type="text" >
+                                    <input class="form-control" v-model="user.password" type="password" >
                                     <span class="small">{{ errors[0] }}</span>
                                 </div>
                             </ValidationProvider> 

@@ -5,29 +5,22 @@
                 <div class="col-md-4 mx-auto">
                     <ValidationObserver v-slot="{handleSubmit}">
                         <form @submit.prevent="handleSubmit(onSubmit)">
-                            <h4 class="mb-4">Welcome back, please login</h4>
-                            <ValidationProvider name="Email" rules="required|email" v-slot="{errors}">
+                            <h4 class="mb-5 text-center">Forget Password</h4>
+                            <ValidationProvider name="email address" rules="required|email" v-slot="{errors}">
                                 <div class="form-group">
-                                    <label>Email</label>
+                                    <label>Enter email address</label>
                                     <input class="form-control" v-model="email" type="text">
                                     <span class="small">{{ errors[0] }}</span>
                                 </div>
                             </ValidationProvider> 
-                            <ValidationProvider name="Password" rules="required" v-slot="{errors}">
-                                <div class="form-group"> 
-                                    <label>Password</label>
-                                    <input class="form-control" v-model="password" type="password" >
-                                    <span class="small">{{ errors[0] }}</span>
-                                </div>
-                            </ValidationProvider> 
                             <div class="mt-4 mb-4">
-                                <button type="submit" :disabled="status.loggingIn" class="btn btn-primary btn-block">Login</button> 
+                                <button type="submit" :disabled="status.requesting" class="btn btn-primary btn-block">Forgot Password</button> 
                             </div>
                             <div v-if="alert.message" :class="`alert ${alert.type}`" v-on:click="clearAlert">{{alert.message}}</div>
 
                             <div class="mt-4">
-                                <p class="forgot-password mb-1">Don't have an account, <router-link to="register">Create one</router-link>?</p>
-                                <p class="forgot-password"><router-link to="forgot-password">Forgot Password</router-link></p>
+                                <p class="forgot-password mb-1"><router-link to="login">Login</router-link></p>
+                                <p class="forgot-password">Don't have an account, <router-link to="register">Create one</router-link>?</p>
                             </div>
                         </form>
                     </ValidationObserver>
@@ -44,7 +37,6 @@ export default {
     data: () => {
         return {
             email: '',
-            password: ''
         }
     },
     computed: {
@@ -55,12 +47,11 @@ export default {
     },
     methods: {
         ...mapActions({
-            login: 'account/login',
+            forgotPassword: 'account/forgotPassword',
             clearAlert: 'alert/clear'
         }),
         onSubmit(){
-            const { email, password } = this;
-            this.login({ email, password });
+            this.forgotPassword(this.email);
         }
     }
 }
